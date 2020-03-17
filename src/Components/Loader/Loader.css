@@ -1,0 +1,9 @@
+.loader-container {
+    background-color: white;
+    margin: auto;
+    height: 100px;
+}
+
+.loader {
+    height: 100px;
+}

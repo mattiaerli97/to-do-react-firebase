@@ -1,0 +1,11 @@
+.todo-list {
+    background-color: white;
+    margin: auto;
+    width: 50%;
+    min-height: 100px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #efefef;
+}
