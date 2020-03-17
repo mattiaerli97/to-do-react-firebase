@@ -9,6 +9,7 @@ and replace the config values in the file
 
 in the following constant
 
+```javascript
 const config = {
     apiKey: "FIREBASE_API_KEY",
     authDomain: "FIREBASE_AUTH_DOMAIN",
@@ -18,7 +19,7 @@ const config = {
     messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID",
     appId: "FIREBASE_APP_ID"
 }
-
+```
 
 ## Available Scripts
 
