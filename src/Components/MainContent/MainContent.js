@@ -3,7 +3,6 @@ import ToDoItem from '../ToDoItem/ToDoItem'
 import Loader from '../Loader/Loader'
 import { dataBaseRef } from '../../api.js';
 import './MainContent.css'
-import load from '../../images/loader.gif'
 
 class MainContent extends React.Component {
     constructor() {

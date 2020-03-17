@@ -1,5 +1,25 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Firebase configuration
+
+Create a new Firebase database on https://firebase.google.com/
+and replace the config values in the file
+
+**/src/api.js**
+
+in the following constant
+
+const config = {
+    apiKey: "FIREBASE_API_KEY",
+    authDomain: "FIREBASE_AUTH_DOMAIN",
+    databaseURL: "FIREBASE_DATABASE_URL",
+    projectId: "FIREBASE_PROJECT_ID",
+    storageBucket: "FIREBASE_STORAGE_BUCKET",
+    messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID",
+    appId: "FIREBASE_APP_ID"
+}
+
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -6,7 +6,7 @@ class Loader extends React.Component {
     render() {
         return (
             <div className="loader-container">
-                <img className="loader" src={ load }></img>
+                <img className="loader" src={ load } alt="loader"></img>
             </div>
         )
     }
