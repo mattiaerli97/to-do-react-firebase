@@ -10,10 +10,12 @@ class MainContent extends React.Component {
         super()
         this.state = {
             todos: [],
-            loading: false
+            loading: false,
+            viewCompleted: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -39,8 +41,11 @@ class MainContent extends React.Component {
                         {todoItems}
                     </div>
                     <div className="button-slot">
-                        <Button />
-                        <Button />
+                        <Button 
+                            text={this.state.viewCompleted ? 'Hide completed' : 'Show completed' }
+                            handleClick={this.handleClick}
+                        />
+                        <Button text="Add Todo"/>
                     </div>
                 </div>
             )
@@ -75,6 +80,16 @@ class MainContent extends React.Component {
         })
     }
 
+    handleClick() {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.viewCompleted = !newState.viewCompleted;
+            return newState;
+        }, () => {
+            this.retriveData();
+        })
+    }
+
     retriveData() {
         let todos = [];
         this.setState(prevState => {
@@ -83,21 +98,39 @@ class MainContent extends React.Component {
             newState.loading = true;
             return newState;
         })
-        dataBaseRef.where("completed", "==", false).get().then(snapshot => {
-            snapshot.forEach(todo => {
-                todos.push({
-                    id: todo.id,
-                    text: todo.data().text,
-                    completed: todo.data().completed
-                });
+        if (this.state.viewCompleted) {
+            dataBaseRef.get().then(snapshot => {
+                snapshot.forEach(todo => {
+                    todos.push({
+                        id: todo.id,
+                        text: todo.data().text,
+                        completed: todo.data().completed
+                    });
+                })
+                this.setState(prevState => {
+                    let newState = prevState;
+                    newState.todos = todos;
+                    newState.loading = false;
+                    return newState;
+                })
+            }) 
+        } else {
+            dataBaseRef.where("completed", "==", false).get().then(snapshot => {
+                snapshot.forEach(todo => {
+                    todos.push({
+                        id: todo.id,
+                        text: todo.data().text,
+                        completed: todo.data().completed
+                    });
+                })
+                this.setState(prevState => {
+                    let newState = prevState;
+                    newState.todos = todos;
+                    newState.loading = false;
+                    return newState;
+                })
             })
-            this.setState(prevState => {
-                let newState = prevState;
-                newState.todos = todos;
-                newState.loading = false;
-                return newState;
-            })
-        })
+        }
     }
 }
 

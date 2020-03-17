@@ -4,7 +4,10 @@ import './Button.css'
 class Button extends React.Component {
     render() {
         return (
-            <button>TEST</button>
+            <button 
+                className="button"
+                onClick={(event) => this.props.handleClick()}
+            >{this.props.text}</button>
         )
     }
 }
