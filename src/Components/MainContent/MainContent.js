@@ -1,6 +1,7 @@
 import React from 'react'
 import ToDoItem from '../ToDoItem/ToDoItem'
 import Loader from '../Loader/Loader'
+import Button from '../Button/Button'
 import { dataBaseRef } from '../../api.js';
 import './MainContent.css'
 
@@ -33,8 +34,14 @@ class MainContent extends React.Component {
 
         if (!loader) {
             return (
-                <div className="todo-list">
-                    {todoItems}
+                <div>
+                    <div className="todo-list">
+                        {todoItems}
+                    </div>
+                    <div className="button-slot">
+                        <Button />
+                        <Button />
+                    </div>
                 </div>
             )
         } else {
@@ -47,6 +54,7 @@ class MainContent extends React.Component {
     }
 
     handleChange(item) {
+        let app = this;
         this.setState(prevState => {
             const newTodos = prevState.todos.map(todo => {
                 if (todo.id === item.id) {
@@ -58,6 +66,7 @@ class MainContent extends React.Component {
                         }
                     ).then(function() {
                         alert("Todo succesfully updated");
+                        app.retriveData();
                     });
                 }
                 return todo;
@@ -68,11 +77,13 @@ class MainContent extends React.Component {
 
     retriveData() {
         let todos = [];
-        this.setState({
-            loading: true,
-            todos: []
-        });
-        dataBaseRef.get().then(snapshot => {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.todos = todos;
+            newState.loading = true;
+            return newState;
+        })
+        dataBaseRef.where("completed", "==", false).get().then(snapshot => {
             snapshot.forEach(todo => {
                 todos.push({
                     id: todo.id,

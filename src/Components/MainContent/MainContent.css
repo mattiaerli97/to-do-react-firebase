@@ -9,3 +9,15 @@
     align-items: center;
     border: 1px solid #efefef;
 }
+
+.button-slot {
+    padding-top: 10px;
+    background-color: white;
+    margin: auto;
+    max-width: 400px;
+    width: 50%;
+    justify-content: space-between;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+}
