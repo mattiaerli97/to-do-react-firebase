@@ -16,6 +16,7 @@ class MainContent extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.setDataAfterRetrieve = this.setDataAfterRetrieve.bind(this);
     }
 
     componentDidMount() {
@@ -91,46 +92,38 @@ class MainContent extends React.Component {
     }
 
     retriveData() {
-        let todos = [];
         this.setState(prevState => {
             let newState = prevState;
-            newState.todos = todos;
+            newState.todos = [];
             newState.loading = true;
             return newState;
         })
         if (this.state.viewCompleted) {
             dataBaseRef.get().then(snapshot => {
-                snapshot.forEach(todo => {
-                    todos.push({
-                        id: todo.id,
-                        text: todo.data().text,
-                        completed: todo.data().completed
-                    });
-                })
-                this.setState(prevState => {
-                    let newState = prevState;
-                    newState.todos = todos;
-                    newState.loading = false;
-                    return newState;
-                })
+                this.setDataAfterRetrieve(snapshot);
             }) 
         } else {
             dataBaseRef.where("completed", "==", false).get().then(snapshot => {
-                snapshot.forEach(todo => {
-                    todos.push({
-                        id: todo.id,
-                        text: todo.data().text,
-                        completed: todo.data().completed
-                    });
-                })
-                this.setState(prevState => {
-                    let newState = prevState;
-                    newState.todos = todos;
-                    newState.loading = false;
-                    return newState;
-                })
+                this.setDataAfterRetrieve(snapshot);
             })
         }
+    }
+
+    setDataAfterRetrieve(snapshot) {
+        let todos = [];
+        snapshot.forEach(todo => {
+            todos.push({
+                id: todo.id,
+                text: todo.data().text,
+                completed: todo.data().completed
+            });
+        })
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.todos = todos;
+            newState.loading = false;
+            return newState;
+        })
     }
 }
 
