@@ -46,11 +46,19 @@ class MainContent extends React.Component {
         }
     }
 
-    handleChange(id) {
+    handleChange(item) {
         this.setState(prevState => {
             const newTodos = prevState.todos.map(todo => {
-                if (todo.id === id) {
+                if (todo.id === item.id) {
                     todo.completed = !todo.completed
+                    dataBaseRef.doc(item.id).update(
+                        {
+                            text: item.text,
+                            completed: todo.completed
+                        }
+                    ).then(function() {
+                        alert("Todo succesfully updated");
+                    });
                 }
                 return todo;
             })

@@ -16,7 +16,7 @@ class ToDoItem extends React.Component {
                     id={'checkbox_' + this.props.item.id} 
                     type="checkbox" 
                     checked={this.props.item.completed}
-                    onChange={(event) => this.props.handleChange(this.props.item.id)}
+                    onChange={(event) => this.props.handleChange(this.props.item)}
                 ></input>
                 <label 
                     htmlFor={'checkbox_' + this.props.item.id}
