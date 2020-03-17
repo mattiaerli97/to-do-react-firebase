@@ -21,6 +21,14 @@ const config = {
 }
 ```
 
+## Database configuration
+
+To correctly use tha app, please create a collection called
+**todos**
+as expressed in the file
+**/src/api.js**
+
+
 ## Available Scripts
 
 In the project directory, you can run:
