@@ -1,17 +1,30 @@
 import React from 'react';
 import './Toast.css'
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 
 class Toast extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            message: ''
+        }
+    }
+
     render() {
         return (
-            <div id="toast"><div id="img">Icon</div><div id="desc">A notification message..</div></div>
+            <div id="toast"><div id="img"><CheckCircleOutline /></div><div id="desc">{this.state.message}</div></div>
         )
     }
 
-    showToast() {
+    showToast(textMessage) {
+        this.setState({ message: textMessage });
+        let app = this;
         var x = document.getElementById("toast")
         x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        setTimeout(function(){ 
+            x.className = x.className.replace("show", "");
+            app.setState({ message: '' });
+        }, 5000);
     }
 }
 

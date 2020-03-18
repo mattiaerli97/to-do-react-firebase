@@ -30,6 +30,9 @@
     
     background-color: #111;
     color: #fff;
+    align-items: center;
+    display: flex;
+    padding-left: 12px;
 }
 #toast #desc{
 

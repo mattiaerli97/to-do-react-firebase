@@ -65,7 +65,7 @@ class MainContent extends React.Component {
                             completed: todo.completed
                         }
                     ).then(function() {
-                        app.messageComponent.showToast()
+                        app.messageComponent.showToast(todo.completed ? 'Todo checked' : 'Todo unchecked')
                         app.retriveData();
                     });
                 }
