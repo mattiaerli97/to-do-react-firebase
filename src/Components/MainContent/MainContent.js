@@ -2,6 +2,7 @@ import React from 'react'
 import ToDoItem from '../ToDoItem/ToDoItem'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
+import Toast from '../Toast/Toast'
 import { dataBaseRef } from '../../api.js';
 import './MainContent.css'
 
@@ -35,28 +36,21 @@ class MainContent extends React.Component {
 
         let loader = this.state.loading;
 
-        if (!loader) {
-            return (
-                <div>
-                    <div className="todo-list">
-                        {todoItems}
-                    </div>
-                    <div className="button-slot">
-                        <Button 
-                            text={this.state.viewCompleted ? 'Hide completed' : 'Show completed' }
-                            handleClick={this.handleClick}
-                        />
-                        <Button text="Add Todo"/>
-                    </div>
-                </div>
-            )
-        } else {
-            return (
+        return (
+            <div>
                 <div className="todo-list">
-                    <Loader />
+                    {!loader ? todoItems : <Loader />}
                 </div>
-            )
-        }
+                <div className="button-slot">
+                    <Button 
+                        text={this.state.viewCompleted ? 'Hide completed' : 'Show completed' }
+                        handleClick={this.handleClick}
+                    />
+                    <Button text="Add Todo"/>
+                </div>
+                <Toast ref={(c) => this.messageComponent = c} />
+            </div>
+        )
     }
 
     handleChange(item) {
@@ -71,7 +65,7 @@ class MainContent extends React.Component {
                             completed: todo.completed
                         }
                     ).then(function() {
-                        alert("Todo succesfully updated");
+                        app.messageComponent.showToast()
                         app.retriveData();
                     });
                 }

@@ -59,7 +59,7 @@ input[type="checkbox"]:checked::before {
 label {
     position: relative;
     cursor: pointer;
-    font-size: 1.2em;
+    font: 1.2em Arial;
     padding-left: 20px;
     -webkit-user-select: none;
     -moz-user-select: none;
