@@ -3,7 +3,7 @@
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 70%;
+    width: 90%;
     border-bottom: 1px solid #cecece;
     font-family: Roboto, sans-serif;
     font-weight: 100;
@@ -77,8 +77,11 @@ label {
 }
 
 .actions {
-    padding-left: 20px;
+    padding-left: 40px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: auto;
+    color: black;
+    width: 20%;
 }

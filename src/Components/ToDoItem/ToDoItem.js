@@ -1,6 +1,7 @@
 import React from 'react'
 import './ToDoItem.css'
-import ButtonDropdown from '../ButtonDropdown/ButtonDropdown'
+import CancelIcon from '@material-ui/icons/Cancel';
+import CreateIcon from '@material-ui/icons/Create';
 
 class ToDoItem extends React.Component {
     render() {
@@ -28,7 +29,9 @@ class ToDoItem extends React.Component {
                     >{this.props.item.text}</label>
                 </div>
                 <div className='actions'>
-                    <ButtonDropdown />
+                    { !this.props.item.completed && <CreateIcon /> }
+                    { this.props.item.completed && <div className='fake-div'></div> }
+                    <CancelIcon />
                 </div>
             </div>
         )
