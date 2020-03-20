@@ -3,6 +3,7 @@ import ToDoItem from '../ToDoItem/ToDoItem'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
 import Toast from '../Toast/Toast'
+import Modal from '../Modal/Modal'
 import { dataBaseRef } from '../../api.js';
 import './MainContent.css'
 
@@ -12,12 +13,15 @@ class MainContent extends React.Component {
         this.state = {
             todos: [],
             loading: false,
-            viewCompleted: false
+            viewCompleted: false,
+            showModal: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.setDataAfterRetrieve = this.setDataAfterRetrieve.bind(this);
+        this.handleShowModal = this.handleShowModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +42,10 @@ class MainContent extends React.Component {
 
         return (
             <div>
+                <Modal 
+                    show={this.state.showModal}
+                    closeModal={this.closeModal}
+                >Test children</Modal>
                 <div className="todo-list">
                     {!loader ? todoItems : <Loader />}
                 </div>
@@ -47,6 +55,10 @@ class MainContent extends React.Component {
                         handleClick={this.handleClick}
                     />
                     <Button text="Add Todo"/>
+                    <Button 
+                        handleClick={this.handleShowModal} 
+                        text="show Modal"
+                    />
                 </div>
                 <Toast ref={(c) => this.messageComponent = c} />
             </div>
@@ -116,6 +128,22 @@ class MainContent extends React.Component {
             let newState = prevState;
             newState.todos = todos;
             newState.loading = false;
+            return newState;
+        })
+    }
+
+    handleShowModal() {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.showModal = true;
+            return newState;
+        })
+    }
+
+    closeModal() {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.showModal = false;
             return newState;
         })
     }
