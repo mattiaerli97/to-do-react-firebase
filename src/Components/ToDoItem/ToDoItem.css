@@ -85,3 +85,7 @@ label {
     color: black;
     width: 20%;
 }
+
+.actions svg {
+    cursor: pointer;
+}

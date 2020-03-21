@@ -5,6 +5,8 @@ import Button from '../Button/Button'
 import Toast from '../Toast/Toast'
 import Modal from '../Modal/Modal'
 import { dataBaseRef } from '../../api.js';
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
+import Delete from '@material-ui/icons/Delete';
 import './MainContent.css'
 
 class MainContent extends React.Component {
@@ -14,15 +16,16 @@ class MainContent extends React.Component {
             todos: [],
             loading: false,
             viewCompleted: false,
-            showModalDelete: false
+            showModalDelete: false,
+            idToConfirm: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.setDataAfterRetrieve = this.setDataAfterRetrieve.bind(this);
-        this.handleShowModal = this.handleShowModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
+        this.confirmDelete = this.confirmDelete.bind(this);
     }
 
     componentDidMount() {
@@ -57,7 +60,7 @@ class MainContent extends React.Component {
                     <Modal.Footer>
                         <Button 
                             text='Confirm' 
-                            handleClick={this.closeModal} 
+                            handleClick={this.confirmDelete} 
                         />
                         <Button 
                             text='Close'
@@ -75,10 +78,6 @@ class MainContent extends React.Component {
                         handleClick={this.handleClick}
                     />
                     <Button text="Add Todo"/>
-                    <Button 
-                        handleClick={this.handleShowModal} 
-                        text="show Modal"
-                    />
                 </div>
                 <Toast ref={(c) => this.messageComponent = c} />
             </div>
@@ -97,7 +96,9 @@ class MainContent extends React.Component {
                             completed: todo.completed
                         }
                     ).then(function() {
-                        app.messageComponent.showToast(todo.completed ? 'Todo checked' : 'Todo unchecked')
+                        app.messageComponent.showToast(
+                            <CheckCircleOutline />, 
+                            todo.completed ? 'Todo checked' : 'Todo unchecked')
                         app.retriveData();
                     });
                 }
@@ -152,24 +153,34 @@ class MainContent extends React.Component {
         })
     }
 
-    handleShowModal() {
-        this.setState(prevState => {
-            let newState = prevState;
-            newState.showModalDelete = true;
-            return newState;
-        })
-    }
-
     closeModal() {
         this.setState(prevState => {
             let newState = prevState;
             newState.showModalDelete = false;
+            newState.idToConfirm = null;
             return newState;
         })
     }
 
     deleteTodo(item) {
-        console.log(item)
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.showModalDelete = true;
+            newState.idToConfirm = item.id; 
+            return newState;
+        })
+    }
+
+    confirmDelete() {
+        let app = this;
+        dataBaseRef.doc(this.state.idToConfirm).delete().then(() => {
+            this.retriveData();
+            this.closeModal();
+            app.messageComponent.showToast(
+                <Delete />, 
+                'todo deleted succesfully'
+            )
+        })
     }
 }
 
