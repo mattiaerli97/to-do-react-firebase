@@ -54,17 +54,6 @@ input[type="checkbox"]:checked::before {
     opacity: 1;
 }
 
-label {
-    position: relative;
-    cursor: pointer;
-    font: 1.2em Arial;
-    word-break: break-all;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
 .completed {
     font-style: italic;
     color: #cdcdcd;

@@ -19,7 +19,8 @@ class MainContent extends React.Component {
             showModalDelete: false,
             idToConfirm: null,
             showModalAddUpdate: false,
-            isUpdate: false
+            isUpdate: false,
+            valueText: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
@@ -30,6 +31,8 @@ class MainContent extends React.Component {
         this.confirmDelete = this.confirmDelete.bind(this);
         this.closeModalAddUpdate = this.closeModalAddUpdate.bind(this);
         this.handleShowModalAddUpdate = this.handleShowModalAddUpdate.bind(this);
+        this.updateInput = this.updateInput.bind(this);
+        this.saveTodo = this.saveTodo.bind(this);
     }
 
     componentDidMount() {
@@ -81,10 +84,24 @@ class MainContent extends React.Component {
                         {this.state.isUpdate ? 'UPDATE TODO' : 'CREATE TODO'}
                     </Modal.Header>
                     <Modal.Body>
-                        {this.state.isUpdate ? 'update body' : 'create body'}
+                        {this.state.isUpdate ? 
+                            'update body' : 
+                            <div>
+                                <label 
+                                    htmlFor='new_todo'
+                                ><b>New Todo</b></label>
+                                <input
+                                    value={this.state.valueText}
+                                    id='new_todo' 
+                                    type='text'
+                                    onChange={this.updateInput}
+                                ></input>
+                            </div>
+                        }
                     </Modal.Body>
                     <Modal.Footer>
                         <Button 
+                            handleClick={this.state.isUpdate ? null : this.saveTodo}
                             text={this.state.isUpdate ? 'Update' : 'Create'}
                         />
                         <Button 
@@ -215,6 +232,7 @@ class MainContent extends React.Component {
         this.setState(prevState => {
             let newState = prevState;
             newState.showModalAddUpdate = false;
+            newState.valueText = '';
             return newState;
         })
     }
@@ -223,6 +241,26 @@ class MainContent extends React.Component {
         this.setState(prevState => {
             let newState = prevState;
             newState.showModalAddUpdate = true;
+            return newState;
+        })
+    }
+
+    saveTodo() {
+        let app = this;
+        dataBaseRef.add({
+            text: app.state.valueText,
+            completed: false
+        }).then(() => {
+            this.retriveData();
+            this.closeModalAddUpdate();
+        })
+    }
+
+    updateInput(event) {
+        let val = event.target.value;
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.valueText = val; 
             return newState;
         })
     }
