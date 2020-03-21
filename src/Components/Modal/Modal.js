@@ -1,6 +1,5 @@
 import React from 'react';
 import './Modal.css'
-import Button from '../Button/Button'
 
 function Header() {
     return null

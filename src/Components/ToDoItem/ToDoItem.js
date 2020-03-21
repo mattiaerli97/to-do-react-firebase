@@ -31,7 +31,7 @@ class ToDoItem extends React.Component {
                 <div className='actions'>
                     { !this.props.item.completed && <CreateIcon /> }
                     { this.props.item.completed && <div className='fake-div'></div> }
-                    <CancelIcon />
+                    <CancelIcon onClick={(event) => this.props.handleDelete(this.props.item)} />
                 </div>
             </div>
         )

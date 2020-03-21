@@ -36,6 +36,7 @@ class MainContent extends React.Component {
                 lastItem={idx === this.state.todos.length - 1} 
                 item={item} 
                 handleChange={this.handleChange}
+                handleDelete={this.deleteTodo}
             />
             )
 
@@ -167,7 +168,9 @@ class MainContent extends React.Component {
         })
     }
 
-    deleteTodo() {}
+    deleteTodo(item) {
+        console.log(item)
+    }
 }
 
 export default MainContent
