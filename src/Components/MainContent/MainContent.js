@@ -7,6 +7,8 @@ import Modal from '../Modal/Modal'
 import { dataBaseRef } from '../../api.js';
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 import Delete from '@material-ui/icons/Delete';
+import Add from '@material-ui/icons/Add';
+import CreateIcon from '@material-ui/icons/Create';
 import './MainContent.css'
 
 class MainContent extends React.Component {
@@ -20,7 +22,8 @@ class MainContent extends React.Component {
             idToConfirm: null,
             showModalAddUpdate: false,
             isUpdate: false,
-            valueText: ''
+            valueText: '',
+            idToConfirmUpdate: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
@@ -33,6 +36,8 @@ class MainContent extends React.Component {
         this.handleShowModalAddUpdate = this.handleShowModalAddUpdate.bind(this);
         this.updateInput = this.updateInput.bind(this);
         this.saveTodo = this.saveTodo.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.updateTodo = this.updateTodo.bind(this);
     }
 
     componentDidMount() {
@@ -47,6 +52,7 @@ class MainContent extends React.Component {
                 item={item} 
                 handleChange={this.handleChange}
                 handleDelete={this.deleteTodo}
+                handleUpdate={this.handleUpdate}
             />
             )
 
@@ -84,24 +90,23 @@ class MainContent extends React.Component {
                         {this.state.isUpdate ? 'UPDATE TODO' : 'CREATE TODO'}
                     </Modal.Header>
                     <Modal.Body>
-                        {this.state.isUpdate ? 
-                            'update body' : 
-                            <div>
-                                <label 
-                                    htmlFor='new_todo'
-                                ><b>New Todo</b></label>
-                                <input
-                                    value={this.state.valueText}
-                                    id='new_todo' 
-                                    type='text'
-                                    onChange={this.updateInput}
-                                ></input>
-                            </div>
-                        }
+                        <div>
+                            <label htmlFor='todo_text'>
+                                    <b>
+                                        To Do
+                                    </b>
+                            </label>
+                            <input
+                                value={this.state.valueText}
+                                id='todo_text' 
+                                type='text'
+                                onChange={this.updateInput}
+                            ></input>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button 
-                            handleClick={this.state.isUpdate ? null : this.saveTodo}
+                            handleClick={this.state.isUpdate ? this.updateTodo : this.saveTodo}
                             text={this.state.isUpdate ? 'Update' : 'Create'}
                         />
                         <Button 
@@ -223,7 +228,7 @@ class MainContent extends React.Component {
             this.closeModal();
             app.messageComponent.showToast(
                 <Delete />, 
-                'todo deleted succesfully'
+                'todo deleted successfully'
             )
         })
     }
@@ -232,7 +237,9 @@ class MainContent extends React.Component {
         this.setState(prevState => {
             let newState = prevState;
             newState.showModalAddUpdate = false;
+            newState.isUpdate = false;
             newState.valueText = '';
+            newState.idToConfirmUpdate = null;
             return newState;
         })
     }
@@ -253,6 +260,9 @@ class MainContent extends React.Component {
         }).then(() => {
             this.retriveData();
             this.closeModalAddUpdate();
+            app.messageComponent.showToast(
+                <Add />, 
+                'todo created successfully')
         })
     }
 
@@ -262,6 +272,32 @@ class MainContent extends React.Component {
             let newState = prevState;
             newState.valueText = val; 
             return newState;
+        })
+    }
+
+    handleUpdate(item) {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.valueText = item.text;
+            newState.isUpdate = true;
+            newState.idToConfirmUpdate = item;
+            return newState;
+        })
+        this.handleShowModalAddUpdate();
+    }
+
+    updateTodo() {
+        let app = this;
+        dataBaseRef.doc(this.state.idToConfirmUpdate.id).update({
+            text: this.state.valueText,
+            completed: false
+        }).then(() => {
+            this.retriveData();
+            this.closeModalAddUpdate();
+            app.messageComponent.showToast(
+                <CreateIcon />,
+                'todo updated successfully'
+            )
         })
     }
 }

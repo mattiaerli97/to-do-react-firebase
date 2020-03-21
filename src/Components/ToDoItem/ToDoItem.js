@@ -29,7 +29,11 @@ class ToDoItem extends React.Component {
                     >{this.props.item.text}</label>
                 </div>
                 <div className='actions'>
-                    { !this.props.item.completed && <CreateIcon /> }
+                    { !this.props.item.completed && 
+                        <CreateIcon 
+                            onClick={(event) => this.props.handleUpdate(this.props.item)} 
+                        /> 
+                    }
                     { this.props.item.completed && <div className='fake-div'></div> }
                     <CancelIcon onClick={(event) => this.props.handleDelete(this.props.item)} />
                 </div>
