@@ -5,7 +5,7 @@
     z-index: 1;
     top: 0;
     background-color: grey;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
   .modal {
@@ -22,32 +22,26 @@
       max-width: 500px;
       border: 1px solid #ccc;
   }
-
-  .off {
-    visibility: hidden;
-    transform: scale(0.33);
-    box-shadow: 1rem 0 0 rgba(black, 0.2);
-  }
   h2 {
     border-bottom: 1px solid #ccc;
     padding: 1rem;
     margin: 0;
+    font: 20px Arial;
+    font-weight: bold;
     background: white;
   }
   .content {
     padding: 1rem;
     background: white;
+    font: 15px Arial;
   }
   .actionsModal {
     border-top: 1px solid #ccc;
     background: #eee;
-    padding: 0.5rem 1rem;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
   }
-  
-  #centered-toggle-button {
-    position: absolute;
+  .actionsModal button {
+    margin-right: 5px;
   }
-  
-  
-  
-  

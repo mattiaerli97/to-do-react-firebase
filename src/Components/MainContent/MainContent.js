@@ -14,7 +14,7 @@ class MainContent extends React.Component {
             todos: [],
             loading: false,
             viewCompleted: false,
-            showModal: false
+            showModalDelete: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
@@ -22,6 +22,7 @@ class MainContent extends React.Component {
         this.setDataAfterRetrieve = this.setDataAfterRetrieve.bind(this);
         this.handleShowModal = this.handleShowModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
     }
 
     componentDidMount() {
@@ -43,9 +44,27 @@ class MainContent extends React.Component {
         return (
             <div>
                 <Modal 
-                    show={this.state.showModal}
-                    closeModal={this.closeModal}
-                >Test children</Modal>
+                    show={this.state.showModalDelete}
+                >
+                    <Modal.Header>
+                        DELETE TODO
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure you want to delete this todo?
+                        This is an irreversible operation
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button 
+                            text='Confirm' 
+                            handleClick={this.closeModal} 
+                        />
+                        <Button 
+                            text='Close'
+                            type='secondary'
+                            handleClick={this.closeModal} 
+                        />
+                    </Modal.Footer>
+                </Modal>
                 <div className="todo-list">
                     {!loader ? todoItems : <Loader />}
                 </div>
@@ -135,7 +154,7 @@ class MainContent extends React.Component {
     handleShowModal() {
         this.setState(prevState => {
             let newState = prevState;
-            newState.showModal = true;
+            newState.showModalDelete = true;
             return newState;
         })
     }
@@ -143,10 +162,12 @@ class MainContent extends React.Component {
     closeModal() {
         this.setState(prevState => {
             let newState = prevState;
-            newState.showModal = false;
+            newState.showModalDelete = false;
             return newState;
         })
     }
+
+    deleteTodo() {}
 }
 
 export default MainContent
