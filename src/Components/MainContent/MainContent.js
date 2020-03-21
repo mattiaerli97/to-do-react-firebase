@@ -17,7 +17,9 @@ class MainContent extends React.Component {
             loading: false,
             viewCompleted: false,
             showModalDelete: false,
-            idToConfirm: null
+            idToConfirm: null,
+            showModalAddUpdate: false,
+            isUpdate: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.retriveData = this.retriveData.bind(this);
@@ -26,6 +28,8 @@ class MainContent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
         this.confirmDelete = this.confirmDelete.bind(this);
+        this.closeModalAddUpdate = this.closeModalAddUpdate.bind(this);
+        this.handleShowModalAddUpdate = this.handleShowModalAddUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -69,6 +73,27 @@ class MainContent extends React.Component {
                         />
                     </Modal.Footer>
                 </Modal>
+
+                <Modal 
+                    show={this.state.showModalAddUpdate}
+                >
+                    <Modal.Header>
+                        {this.state.isUpdate ? 'UPDATE TODO' : 'CREATE TODO'}
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.state.isUpdate ? 'update body' : 'create body'}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button 
+                            text={this.state.isUpdate ? 'Update' : 'Create'}
+                        />
+                        <Button 
+                            text='Close'
+                            type='secondary'
+                            handleClick={this.closeModalAddUpdate} 
+                        />
+                    </Modal.Footer>
+                </Modal>
                 <div className="todo-list">
                     {!loader ? todoItems : <Loader />}
                 </div>
@@ -77,7 +102,10 @@ class MainContent extends React.Component {
                         text={this.state.viewCompleted ? 'Hide completed' : 'Show completed' }
                         handleClick={this.handleClick}
                     />
-                    <Button text="Add Todo"/>
+                    <Button 
+                        text="Add Todo" 
+                        handleClick={this.handleShowModalAddUpdate}
+                    />
                 </div>
                 <Toast ref={(c) => this.messageComponent = c} />
             </div>
@@ -180,6 +208,22 @@ class MainContent extends React.Component {
                 <Delete />, 
                 'todo deleted succesfully'
             )
+        })
+    }
+
+    closeModalAddUpdate() {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.showModalAddUpdate = false;
+            return newState;
+        })
+    }
+
+    handleShowModalAddUpdate() {
+        this.setState(prevState => {
+            let newState = prevState;
+            newState.showModalAddUpdate = true;
+            return newState;
         })
     }
 }
