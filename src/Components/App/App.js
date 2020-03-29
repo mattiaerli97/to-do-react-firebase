@@ -7,12 +7,7 @@ import { dataBaseRefUsers } from '../../api.js';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    Redirect,
-    useHistory,
-    withRouter,
-    useLocation
+    Route
 } from 'react-router-dom'
 
 class App extends React.Component {

@@ -51,10 +51,11 @@ class Login extends React.Component {
                     <Button 
                         text="Login"
                         handleClick={(event) => 
-                            this.props.login(this.state.email, 
-                                this.state.password,
-                                from,
-                                history
+                            this.props.login(
+                                    this.state.email, 
+                                    this.state.password,
+                                    from,
+                                    history
                                 )
                             }
                     />
