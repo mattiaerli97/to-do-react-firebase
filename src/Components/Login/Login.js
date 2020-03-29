@@ -1,6 +1,9 @@
 import React from 'react'
 import './Login.css'
 import Button from '../Button/Button'
+import {
+    withRouter
+} from 'react-router-dom'
 
 class Login extends React.Component {
     constructor() {
@@ -14,6 +17,11 @@ class Login extends React.Component {
     }
 
     render() {
+        let history = this.props.history
+        let location = history.location;
+
+        let { from } = location.state || { from: { pathname: '/protected' } };
+
         return (
             <div className='login-wrapper'>
                 <label htmlFor='email_text'>
@@ -39,12 +47,15 @@ class Login extends React.Component {
                     type='password'
                     onChange={this.updatePassword}
                 ></input>
-                <div className="button-slot">
+                <div className="button-slot-login">
                     <Button 
                         text="Login"
                         handleClick={(event) => 
                             this.props.login(this.state.email, 
-                                this.state.password)
+                                this.state.password,
+                                from,
+                                history
+                                )
                             }
                     />
                 </div>
@@ -71,4 +82,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+export default withRouter(Login)

@@ -13,3 +13,4 @@ const config = {
 firebase.initializeApp(config);
 
 export const dataBaseRef = firebase.firestore().collection('todos');
+export const dataBaseRefUsers = firebase.firestore().collection('users');
