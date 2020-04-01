@@ -4,7 +4,12 @@ import './Header.css'
 class Header extends React.Component {
     render() {
         return(
-            <header className="navbar">TODO List</header>
+            <header className="navbar">
+                TODO List
+                <div className='credentials'>
+                    {localStorage.getItem('mailUser')}
+                </div>
+            </header>
         )
     }
 }

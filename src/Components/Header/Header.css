@@ -9,3 +9,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.credentials {
+    position: absolute;
+    right: 20px;
+    align-items: center;
+    font: 12px Arial;
+}

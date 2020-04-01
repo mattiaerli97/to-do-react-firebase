@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Header/Header'
 import MainContent from '../MainContent/MainContent'
+import MainContentLists from '../MainContentLists/MainContentLists'
 import Login from '../Login/Login'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import { dataBaseRefUsers } from '../../api.js';
@@ -31,6 +32,9 @@ class App extends React.Component {
                     <Route path='/login'>
                         <Login login={this.login} />
                     </Route>
+                    <PrivateRoute path='/lists'>
+                        <MainContentLists />
+                    </PrivateRoute>
                     <PrivateRoute path='/protected'>
                         <MainContent />
                     </PrivateRoute>
@@ -69,7 +73,7 @@ class App extends React.Component {
                 return newState;
             })
             localStorage.setItem('idUser', users[0].id);
-            console.log(from)
+            localStorage.setItem('mailUser', users[0].email);
             history.replace(from);
         }
     }

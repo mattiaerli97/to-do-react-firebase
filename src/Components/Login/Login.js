@@ -16,11 +16,18 @@ class Login extends React.Component {
         this.updatePassword = this.updatePassword.bind(this);
     }
 
+    componentDidMount() {
+        let history = this.props.history;
+        if (localStorage.getItem('idUser')) {
+            this.props.history.push('/lists');
+        }
+    }
+
     render() {
         let history = this.props.history
         let location = history.location;
 
-        let { from } = location.state || { from: { pathname: '/protected' } };
+        let { from } = location.state || { from: { pathname: '/lists' } };
 
         return (
             <div className='login-wrapper'>
