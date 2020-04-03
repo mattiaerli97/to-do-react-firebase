@@ -10,6 +10,9 @@ import Delete from '@material-ui/icons/Delete';
 import Add from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
 import './MainContent.css'
+import {
+    withRouter
+} from 'react-router-dom'
 
 class MainContent extends React.Component {
     constructor() {
@@ -41,7 +44,7 @@ class MainContent extends React.Component {
     }
 
     componentDidMount() {
-        this.retriveData();
+        this.retriveData(this.props.match.params.id);
     }
 
     render() {
@@ -149,7 +152,7 @@ class MainContent extends React.Component {
                         app.messageComponent.showToast(
                             <CheckCircleOutline />, 
                             todo.completed ? 'Todo checked' : 'Todo unchecked')
-                        app.retriveData();
+                        app.retriveData(this.props.match.params.id);
                     });
                 }
                 return todo;
@@ -164,11 +167,11 @@ class MainContent extends React.Component {
             newState.viewCompleted = !newState.viewCompleted;
             return newState;
         }, () => {
-            this.retriveData();
+            this.retriveData(this.props.match.params.id);
         })
     }
 
-    retriveData() {
+    retriveData(id) {
         this.setState(prevState => {
             let newState = prevState;
             newState.todos = [];
@@ -176,11 +179,11 @@ class MainContent extends React.Component {
             return newState;
         })
         if (this.state.viewCompleted) {
-            dataBaseRef.get().then(snapshot => {
+            dataBaseRef.where("list_id", "==", id).get().then(snapshot => {
                 this.setDataAfterRetrieve(snapshot);
             }) 
         } else {
-            dataBaseRef.where("completed", "==", false).get().then(snapshot => {
+            dataBaseRef.where("list_id", "==", id).where("completed", "==", false).get().then(snapshot => {
                 this.setDataAfterRetrieve(snapshot);
             })
         }
@@ -224,7 +227,7 @@ class MainContent extends React.Component {
     confirmDelete() {
         let app = this;
         dataBaseRef.doc(this.state.idToConfirm).delete().then(() => {
-            this.retriveData();
+            this.retriveData(this.props.match.params.id);
             this.closeModal();
             app.messageComponent.showToast(
                 <Delete />, 
@@ -258,7 +261,7 @@ class MainContent extends React.Component {
             text: app.state.valueText,
             completed: false
         }).then(() => {
-            this.retriveData();
+            this.retriveData(this.props.match.params.id);
             this.closeModalAddUpdate();
             app.messageComponent.showToast(
                 <Add />, 
@@ -292,7 +295,7 @@ class MainContent extends React.Component {
             text: this.state.valueText,
             completed: false
         }).then(() => {
-            this.retriveData();
+            this.retriveData(this.props.match.params.id);
             this.closeModalAddUpdate();
             app.messageComponent.showToast(
                 <CreateIcon />,
@@ -302,4 +305,4 @@ class MainContent extends React.Component {
     }
 }
 
-export default MainContent
+export default withRouter(MainContent)

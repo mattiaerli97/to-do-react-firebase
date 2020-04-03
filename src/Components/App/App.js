@@ -4,6 +4,7 @@ import MainContent from '../MainContent/MainContent'
 import MainContentLists from '../MainContentLists/MainContentLists'
 import Login from '../Login/Login'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
+import PrivateRouteToDo from '../PrivateRouteToDo/PrivateRouteToDo'
 import { dataBaseRefUsers } from '../../api.js';
 import {
     BrowserRouter as Router,
@@ -35,9 +36,9 @@ class App extends React.Component {
                     <PrivateRoute path='/lists'>
                         <MainContentLists />
                     </PrivateRoute>
-                    <PrivateRoute path='/protected'>
+                    <PrivateRouteToDo>
                         <MainContent />
-                    </PrivateRoute>
+                    </PrivateRouteToDo>
                 </Switch>
             </Router>
 
