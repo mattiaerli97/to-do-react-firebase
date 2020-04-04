@@ -5,11 +5,13 @@ import MainContentLists from '../MainContentLists/MainContentLists'
 import Login from '../Login/Login'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PrivateRouteToDo from '../PrivateRouteToDo/PrivateRouteToDo'
+import NotFound from '../NotFound/NotFound'
 import { dataBaseRefUsers } from '../../api.js';
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    Redirect
 } from 'react-router-dom'
 
 class App extends React.Component {
@@ -32,6 +34,9 @@ class App extends React.Component {
                     </Route>
                     <Route path='/login'>
                         <Login login={this.login} />
+                    </Route>
+                    <Route path='/not-found'>
+                        <NotFound />
                     </Route>
                     <PrivateRoute path='/lists'>
                         <MainContentLists />

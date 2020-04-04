@@ -4,7 +4,7 @@ import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
 import Toast from '../Toast/Toast'
 import Modal from '../Modal/Modal'
-import { dataBaseRef } from '../../api.js';
+import { dataBaseRef, dataBaseRefLists } from '../../api.js';
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 import Delete from '@material-ui/icons/Delete';
 import Add from '@material-ui/icons/Add';
@@ -172,21 +172,28 @@ class MainContent extends React.Component {
     }
 
     retriveData(id) {
-        this.setState(prevState => {
-            let newState = prevState;
-            newState.todos = [];
-            newState.loading = true;
-            return newState;
+        dataBaseRefLists.doc(id).get().then(doc => {
+            console.log(doc.exists);
+            if (doc.exists) {
+                this.setState(prevState => {
+                    let newState = prevState;
+                    newState.todos = [];
+                    newState.loading = true;
+                    return newState;
+                })
+                if (this.state.viewCompleted) {
+                    dataBaseRef.where("list_id", "==", id).get().then(snapshot => {
+                        this.setDataAfterRetrieve(snapshot);
+                    }) 
+                } else {
+                    dataBaseRef.where("list_id", "==", id).where("completed", "==", false).get().then(snapshot => {
+                        this.setDataAfterRetrieve(snapshot);
+                    })
+                }
+            } else {
+                this.props.history.push('/not-found');
+            }
         })
-        if (this.state.viewCompleted) {
-            dataBaseRef.where("list_id", "==", id).get().then(snapshot => {
-                this.setDataAfterRetrieve(snapshot);
-            }) 
-        } else {
-            dataBaseRef.where("list_id", "==", id).where("completed", "==", false).get().then(snapshot => {
-                this.setDataAfterRetrieve(snapshot);
-            })
-        }
     }
 
     setDataAfterRetrieve(snapshot) {
