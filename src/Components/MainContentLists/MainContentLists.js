@@ -1,5 +1,6 @@
 import React from 'react';
 import ListItem from '../ListItem/ListItem';
+import Button from '../Button/Button';
 import { dataBaseRefUsers, dataBaseRefLists } from '../../api.js';
 import './MainContentLists.css';
 import {
@@ -34,7 +35,15 @@ class MainContentLists extends React.Component {
         )
         return (
             <div>
-                {lists}
+                <div>
+                    {lists}
+                </div>
+                <div className="button-slot-lists">
+                    <Button 
+                        text="Add Todo" 
+                        handleClick={this.handleShowModalAddUpdate}
+                    />
+                </div>
             </div>
         )
     }

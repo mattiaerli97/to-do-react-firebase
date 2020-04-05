@@ -173,7 +173,6 @@ class MainContent extends React.Component {
 
     retriveData(id) {
         dataBaseRefLists.doc(id).get().then(doc => {
-            console.log(doc.exists);
             if (doc.exists) {
                 this.setState(prevState => {
                     let newState = prevState;

@@ -10,8 +10,7 @@ import { dataBaseRefUsers } from '../../api.js';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Redirect
+    Route
 } from 'react-router-dom'
 
 class App extends React.Component {
@@ -46,14 +45,6 @@ class App extends React.Component {
                     </PrivateRouteToDo>
                 </Switch>
             </Router>
-
-            /*<div>
-                <Header />
-                { this.state.isLogged 
-                    ? <MainContent /> 
-                    : <Login login={this.login} />
-                }
-            </div>*/
         )
     }
 

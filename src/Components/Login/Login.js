@@ -17,7 +17,6 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        let history = this.props.history;
         if (localStorage.getItem('idUser')) {
             this.props.history.push('/lists');
         }
