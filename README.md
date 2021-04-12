@@ -1,6 +1,6 @@
 Go to [https://to-do-react-firebase.herokuapp.com/login](https://to-do-react-firebase.herokuapp.com/login)
-and use these credentials to test the app:
-mail: erli.mattia@gmail.com
+and use these credentials to test the app:  
+mail: erli.mattia@gmail.com  
 password: test
 
 ## Firebase configuration
