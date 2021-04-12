@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Go to [https://to-do-react-firebase.herokuapp.com/login](https://to-do-react-firebase.herokuapp.com/login)
+and use these credentials to test the app:
+mail: erli.mattia@gmail.com
+password: test
 
 ## Firebase configuration
 
