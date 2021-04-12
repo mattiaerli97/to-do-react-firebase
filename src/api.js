@@ -1,14 +1,14 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase'
 
 const config = {
-    apiKey: "FIREBASE_API_KEY",
-    authDomain: "FIREBASE_AUTH_DOMAIN",
-    databaseURL: "FIREBASE_DATABASE_URL",
-    projectId: "FIREBASE_PROJECT_ID",
-    storageBucket: "FIREBASE_STORAGE_BUCKET",
-    messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID",
-    appId: "FIREBASE_APP_ID"
-}
+    apiKey: "AIzaSyBlKrTZay2L-3XIUchV_-2Xw974h9yL7wo",
+    authDomain: "todo-react-27cef.firebaseapp.com",
+    databaseURL: "https://todo-react-27cef.firebaseio.com",
+    projectId: "todo-react-27cef",
+    storageBucket: "todo-react-27cef.appspot.com",
+    messagingSenderId: "689805188245",
+    appId: "1:689805188245:web:c128ab6b22e52a0698cf9c"
+  };
 
 firebase.initializeApp(config);
 

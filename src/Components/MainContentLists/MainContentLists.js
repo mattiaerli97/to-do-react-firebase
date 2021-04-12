@@ -25,7 +25,7 @@ class MainContentLists extends React.Component {
         let lists = this.state.lists.map((item, idx) =>
             <div 
                 className="list" 
-                key={item.id} onClick={() => { this.props.history.push('/protected/' + item.id) }}
+                key={item.id} onClick={() => { this.props.history.push('/todo/' + item.id) }}
             >
                 <ListItem 
                     key={item.id}

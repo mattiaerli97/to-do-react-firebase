@@ -152,7 +152,7 @@ class MainContent extends React.Component {
                         app.messageComponent.showToast(
                             <CheckCircleOutline />, 
                             todo.completed ? 'Todo checked' : 'Todo unchecked')
-                        app.retriveData(this.props.match.params.id);
+                        app.retriveData(app.props.match.params.id);
                     });
                 }
                 return todo;
@@ -265,9 +265,10 @@ class MainContent extends React.Component {
         let app = this;
         dataBaseRef.add({
             text: app.state.valueText,
+            list_id: app.props.match.params.id,
             completed: false
         }).then(() => {
-            this.retriveData(this.props.match.params.id);
+            this.retriveData(app.props.match.params.id);
             this.closeModalAddUpdate();
             app.messageComponent.showToast(
                 <Add />, 

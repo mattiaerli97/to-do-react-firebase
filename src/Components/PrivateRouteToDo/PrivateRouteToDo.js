@@ -8,7 +8,7 @@ class PrivateRouteToDo extends React.Component {
     render() {
         return (
             <Route
-              path='/protected/:id'
+              path='/todo/:id'
               render={({ location }) =>
                 localStorage.getItem('idUser') ? (
                   this.props.children
